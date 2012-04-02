@@ -108,7 +108,7 @@ function get_storage_list($access_token, $device_id)
     $query = "access_token={$access_token}&device_id={$device_id}";
     $data  = make_request($url, $query);
     $data  = json_decode($data, TRUE);
-    return (isset($data["storages"])) ? $data["storages"] : NULL;
+    return (isset($data["storages"])) ? $data["storages"] : array();
 }
 
 function get_file_list($access_token, $device_id, $mountpoint, $path)

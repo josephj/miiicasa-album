@@ -34,6 +34,10 @@ foreach ($devices as $device) :
                         <h2><?php echo $device["device_annotate"]; ?></h2>
 <?php
     $storages = get_storage_list($access_token, $device_id);
+    if (count($storages) === 0)
+    {
+        echo '<p class="empty">此裝置目前沒有任何 Storage</p>';
+    }
     foreach ($storages as $storage) :
 ?>
                         <div class="storage">

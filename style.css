@@ -107,3 +107,9 @@ h2 {
 .yui3-panel img {
     height: 600px;
 }
+.empty {
+    color: #999;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
