@@ -1,0 +1,109 @@
+html, body {
+    background: #000;
+    font-family: "微軟正黑體", "Microsoft JhengHei", Arial;
+}
+body {
+    padding: 10px;
+    background: url(http://static.josephj.com/logo.png) 99% 10px no-repeat;
+}
+h1, h2, h3, h4 {
+    font-weight: bold;
+}
+h1 {
+    color: #fff;
+    font-size: 123.1%;
+    margin: 10px 0;
+}
+h2 {
+    font-size: 116%;
+}
+.device {
+    background: #fff;
+    margin-bottom: 10px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -o-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -khtml-border-radius: 15px;
+    border-radius: 15px;
+    padding: 0 10px 15px;
+}
+.device h2 {
+    background: url(ico_dwr117.png) 5px 5px no-repeat;
+    padding: 40px 0 40px 110px;
+}
+.storage {
+    margin-bottom: 5px;
+}
+.storage h3 {
+    background: #666 url(ico_usb.png) 5px center no-repeat;
+    color: #fff;
+    padding: 3px 0 3px 25px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+.partition {
+    margin-left: 5px;
+}
+.partition h4 {
+    background: url(ico_partition.png) 5px center no-repeat;
+    font-size: 93%;
+    padding: 5px 0 5px 25px;
+}
+.partition ul {
+    zoom: 1;
+}
+.partition ul:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.partition li {
+    float: left;
+    overflow: hidden;
+    width: 126px;
+    margin: 0 5px 5px 0;
+}
+.partition li a {
+    display: block;
+    position: relative;
+    height: 130px;
+}
+.partition li a img {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+}
+.partition li a span {
+    background: url(http://a.mimgs.com/index/space/sp_bg_photo_mask.png) 0 -30px no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.partition li h5 {
+    white-space: nowrap;
+    text-align: center;
+}
+#content em {
+    color: #aaa;
+    text-align: center;
+    display: block;
+    padding: 200px 50px;
+    font-size: 60px;
+}
+#content ul {
+    margin: 50px 40px;
+}
+#content ul li {
+    float: left;
+    margin: 0 5px 5px 0;
+}
+.yui3-panel img {
+    height: 600px;
+}
