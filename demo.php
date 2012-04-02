@@ -2,7 +2,8 @@
 require_once "config.php";
 require_once "function.php";
 $access_token = get_access_token();
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -25,35 +26,35 @@ $access_token = get_access_token();
             </div>
             <div class="yui-b">
 <?php
-    $devices = get_device_list($access_token);
-    foreach ($devices as $device) :
-        $device_id = $device["device_id"];
+$devices = get_device_list($access_token);
+foreach ($devices as $device) :
+    $device_id = $device["device_id"];
 ?>
                     <div class="device">
                         <h2><?php echo $device["device_annotate"]; ?></h2>
 <?php
-        $storages = get_storage_list($access_token, $device_id);
-        foreach ($storages as $storage) :
+    $storages = get_storage_list($access_token, $device_id);
+    foreach ($storages as $storage) :
 ?>
                         <div class="storage">
                             <h3><?php echo $storage["model"]; ?></h3>
                             <div class="partition">
 <?php
-            $mountpoints = $storage["mountpoints"];
-            foreach ($mountpoints as $mountpoint_data) : ?>
+        $mountpoints = $storage["mountpoints"];
+        foreach ($mountpoints as $mountpoint_data) : ?>
                             <h4><?php echo $mountpoint_data["mountpoint"]; ?></h4>
                             <ul>
 <?php
-                $mountpoint = $mountpoint_data["mountpoint"];
-                $files = get_file_list($access_token, $device_id, $mountpoint, "/");
-                foreach ($files as $file):
-                    if ($file["type"] != 2):
-                        continue;
-                    endif;
-                    $file_name = $file["name"];
-                    $mtime = $file["mtime"];
-                    $img_url = get_photo_cover($access_token, $device_id, $mountpoint, "/", $file_name);
-                    $site_url = get_site_url($device_id, $mountpoint, $file_name, $mtime);
+            $mountpoint = $mountpoint_data["mountpoint"];
+            $files = get_file_list($access_token, $device_id, $mountpoint, "/");
+            foreach ($files as $file):
+                if ($file["type"] != 2):
+                    continue;
+                endif;
+                $file_name = $file["name"];
+                $mtime = $file["mtime"];
+                $img_url = get_photo_cover($access_token, $device_id, $mountpoint, "/", $file_name);
+                $site_url = get_site_url($device_id, $mountpoint, $file_name, $mtime);
 ?>
                                 <li>
                                     <a href="<?php echo $site_url; ?>&access_token=<?php echo $access_token; ?>" target="_blank" class="folder-link">
@@ -62,10 +63,10 @@ $access_token = get_access_token();
                                     </a>
                                     <h5><?php echo $file_name; ?></h5>
                                 </li>
-<?php           endforeach; ?>
+<?php       endforeach; ?>
                             </ul>
                         </div>
-<?php     endforeach; ?>
+<?php endforeach; ?>
                     </div>
 <?php endforeach; ?>
                 </div>
