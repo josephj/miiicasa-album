@@ -32,66 +32,48 @@ function make_request($url, $query)
 
 function get_access_token()
 {
-    if (file_exists(TOKEN_FILE))
+    // File not exists.
+    if ( ! file_exists(TOKEN_FILE))
     {
-        $data = file_get_contents(TOKEN_FILE, TRUE);
-        $data = trim($data);
-        $data = json_decode($data, TRUE);
-
-        if (is_array($data) && isset($data["access_token"]))
-        {
-            $expire = intval($data["modified"]) + intval($data["expires_in"]);
-
-            // Not expired.
-            if (time() < $expire)
-            {
-                return $data["access_token"];
-            }
-
-            // Refresh access_token when it expires.
-            $fields = array(
-                "grant_type=refresh_token",
-                "client_id=" . API_KEY,
-                "client_secret=" . SECRET_KEY,
-                "redirect_uri=" . REDIRECT_URL,
-                "refresh_token=" . $token_data["refresh_token"],
-            );
-            $data = make_request(TOKEN_URL, implode($fields, "&"));
-            $data = json_decode($data, TRUE);
-
-            // Make sure new access token exists.
-            if ( ! isset($data) || ! isset($data["access_token"]))
-            {
-                // Something wrong.
-                redirect();
-            }
-            save_token($data);
-
-        }
+        return FALSE;
     }
 
-    $code  = (isset($_GET["code"]) && $_GET["code"] !== "")   ? $_GET["code"] : NULL;
-    $state = (isset($_GET["state"]) && $_GET["state"] !== "") ? $_GET["state"] : NULL;
-    if ($code && $state)
+    $data = file_get_contents(TOKEN_FILE, TRUE);
+    $data = trim($data);
+    $data = json_decode($data, TRUE);
+
+    // Format error. (This shouldn't happen)
+    if ( ! is_array($data) || ! isset($data["access_token"]))
     {
-        $fields = array(
-            "grant_type=authorization_code",
-            "code=" . $code,
-            "client_id=" . API_KEY,
-            "client_secret=" . SECRET_KEY,
-            "redirect_uri=" . REDIRECT_URL,
-        );
-        $data = make_request(TOKEN_URL, implode($fields, "&"));
-        $data = json_decode($data, TRUE);
-        if ( ! isset($data) || ! isset($data["access_token"]))
-        {
-            // Something wrong.
-            redirect();
-        }
-        save_token($data);
+        return FALSE;
+    }
+
+    // Access token is still valid.
+    $expire = intval($data["modified"]) + intval($data["expires_in"]);
+    if (time() < $expire)
+    {
         return $data["access_token"];
     }
-    redirect();
+
+    // Expired. Use refresh token method to get new token.
+    $fields = array(
+        "grant_type=refresh_token",
+        "client_id=" . API_KEY,
+        "client_secret=" . SECRET_KEY,
+        "redirect_uri=" . REDIRECT_URL,
+        "refresh_token=" . $token_data["refresh_token"],
+    );
+    $data = make_request(TOKEN_URL, implode($fields, "&"));
+    $data = json_decode($data, TRUE);
+
+    // Quit if error exists.
+    if ( ! isset($data) || ! isset($data["error"]))
+    {
+        return FALSE;
+    }
+
+    save_token($data);
+    return $data["access_token"];
 }
 function get_device_list($access_token)
 {

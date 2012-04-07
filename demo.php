@@ -2,6 +2,11 @@
 require_once "config.php";
 require_once "function.php";
 $access_token = get_access_token();
+if ( ! $access_token)
+{
+    echo "Access token has expired."
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html>
