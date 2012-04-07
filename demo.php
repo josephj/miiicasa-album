@@ -4,7 +4,7 @@ require_once "function.php";
 $access_token = get_access_token();
 if ( ! $access_token)
 {
-    echo "Access token has expired."
+    echo "Access token has expired.";
     exit;
 }
 ?>
