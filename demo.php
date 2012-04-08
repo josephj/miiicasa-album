@@ -32,6 +32,11 @@ if ( ! $access_token)
             <div class="yui-b">
 <?php
 $devices = get_device_list($access_token);
+if ( ! count($devices))
+{
+    echo "No device exists.";
+    exit;
+}
 foreach ($devices as $device) :
     $device_id = $device["device_id"];
 ?>
