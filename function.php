@@ -61,13 +61,13 @@ function get_access_token()
         "client_id=" . API_KEY,
         "client_secret=" . SECRET_KEY,
         "redirect_uri=" . REDIRECT_URL,
-        "refresh_token=" . $token_data["refresh_token"],
+        "refresh_token=" . $data["refresh_token"],
     );
     $data = make_request(TOKEN_URL, implode($fields, "&"));
     $data = json_decode($data, TRUE);
 
     // Quit if error exists.
-    if ( ! isset($data) || ! isset($data["error"]))
+    if (isset($data) && isset($data["error"]))
     {
         return FALSE;
     }
